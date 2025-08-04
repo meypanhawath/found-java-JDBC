@@ -3,21 +3,19 @@ package bank.repository;
 import bank.database.DataConnection;
 import bank.model.Customer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRepository {
 
-    public List<Customer> getCustomerDAta(){
+    // Get All Customer Data
+    public List<Customer> getCustomerData(){
 
-        String sql = "SELECT * FROM customer";
+        String sqlSelectTable = "SELECT * FROM customer";
         List<Customer> customerList = new ArrayList<>();
         try(Connection con = DataConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = con.prepareStatement(sqlSelectTable);
             ResultSet rs = stmt.executeQuery()){
 
             while(rs.next()){
@@ -38,6 +36,26 @@ public class CustomerRepository {
         }
 
         return customerList;
+    }
+
+    // Find customer by email
+    public Customer getCustomerByEmail(String email){
+        Customer customer = new Customer();
+
+        String sqlSearchByEmail = "SELECT * FROM customer WHERE email = ?";
+
+        try(Connection con = DataConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sqlSearchByEmail);
+        ){
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+        }catch (SQLException e){
+            System.out.println(e.getStackTrace());
+        }
+
+        return customer;
     }
 }
 
