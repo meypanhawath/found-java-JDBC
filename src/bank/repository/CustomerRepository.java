@@ -7,7 +7,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerRepository {
+public class  CustomerRepository {
+
+    private List<Customer> customers;
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
 
     // Get All Customer Data
     public List<Customer> getCustomerData(){
