@@ -1,6 +1,7 @@
 package bank;
 
 import bank.model.Customer;
+import bank.view.CustomerView;
 
 import java.sql.*;
 import java.util.UUID;
@@ -8,6 +9,10 @@ import java.util.UUID;
 public class Main {
 
     public static void main(String[] args) {
+
+        CustomerView customerView = new CustomerView();
+        customerView.customerFeatures();
+
 
         Customer customer = new Customer(
                 UUID.randomUUID().toString(),
